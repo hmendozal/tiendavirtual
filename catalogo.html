@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Catálogo | Vitrina 360</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Mismo stack que tu sitio -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+
+  <style>
+    body { font-family:"Open Sans", system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial; }
+    .page-header{ background: linear-gradient(135deg,#0d6efd 0%,#67b6ff 100%); }
+
+    .catalog-toolbar{ gap:.75rem; }
+    .catalog-toolbar .form-control{ max-width:260px; }
+
+    .catalog-card{
+      border: 0; border-radius: 1rem; overflow: hidden; background:#fff;
+      box-shadow: 0 10px 28px rgba(0,0,0,.06);
+      transition: transform .25s ease, box-shadow .25s ease;
+      height:100%;
+    }
+    .catalog-card:hover{ transform: translateY(-6px); box-shadow:0 18px 40px rgba(0,0,0,.1); }
+    .catalog-thumb{
+      position: relative; padding-top: 64%;
+      background:#f5f6f8 center/cover no-repeat;
+      display:block;
+    }
+    .catalog-badge{
+      position:absolute; top:12px; right:12px;
+      font-weight:700; font-size:.78rem; letter-spacing:.3px;
+      padding:.35rem .6rem; border-radius:.6rem;
+      color:#1f1f1f; background:#ffe9b3;
+    }
+    .badge-green{ background:#d7f9d7; color:#0a6b0a; }
+    .badge-orange{ background:#ffe0c2; color:#b45500; }
+
+    .brand-line{ display:flex; align-items:center; gap:.5rem; }
+    .brand-logo{
+      width:24px; height:24px; border-radius:50%;
+      display:grid; place-items:center; font-weight:800; color:#fff; background:#999;
+      font-size:.85rem;
+    }
+    .brand-logo[data-color="red"]{background:#e63946}
+    .brand-logo[data-color="green"]{background:#2a9d8f}
+    .brand-logo[data-color="blue"]{background:#457b9d}
+    .brand-logo[data-color="yellow"]{background:#e9c46a}
+
+    .catalog-btn{
+      background:#e74c3c; border:1px solid #e74c3c; color:#fff;
+      border-radius:.9rem; padding:.6rem 1.1rem; font-weight:700;
+    }
+    .catalog-btn:hover{ filter:brightness(.95); color:#fff; }
+
+    /* Visor PDF */
+    .viewer .modal-content{ background:#0f1115; color:#fff; border:0; }
+    .viewer .modal-body{ position:relative; padding:0; display:flex; align-items:center; justify-content:center; min-height:70vh; }
+    #pdfCanvas{ max-width:100%; max-height:82vh; width:auto; height:auto; border-radius:.5rem; box-shadow:0 12px 40px rgba(0,0,0,.45); }
+
+    .viewer-arrow{
+      position:absolute; top:50%; transform:translateY(-50%);
+      width:46px; height:46px; border-radius:50%; border:0;
+      display:grid; place-items:center; background:rgba(255,255,255,.15); color:#fff;
+    }
+    .viewer-arrow:hover{ background:rgba(255,255,255,.25); }
+    .viewer-prev{ left:16px; }
+    .viewer-next{ right:16px; }
+
+    .viewer-top{
+      position:absolute; top:10px; right:10px; display:flex; gap:.5rem;
+    }
+    .viewer-top .btn{ background:rgba(255,255,255,.12); color:#fff; border:0; }
+    .viewer-footer{
+      display:flex; justify-content:space-between; align-items:center; gap:1rem;
+      padding: .8rem 1rem; background:#0a0c10; border-top:1px solid rgba(255,255,255,.08);
+    }
+    .pager{ font-weight:700; }
+    .btn-outline-light{ border-color:rgba(255,255,255,.35)!important; }
+
+    @media (max-width: 576px){
+      .catalog-toolbar{ flex-direction:column; align-items:flex-start; }
+      .catalog-toolbar .form-control{ width:100%; max-width:none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar mínima; usa la tuya si ya la tienes como include -->
+
+<div class="container-fluid fixed-top">
+      <div class="container topbar bg-primary d-none d-lg-block">
+        <div class="d-flex justify-content-between">
+          <div class="top-info ps-2">
+            <small class="me-3"><i class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#" class="text-white">Perú, Piura</a></small>
+            <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">tienda@example.com</a></small>
+          </div>
+          <div class="top-link pe-2">
+            <a href="#" class="text-white"><small class="text-white mx-2">Política de Privacidad</small>/</a>
+            <a href="#" class="text-white"><small class="text-white mx-2">Condiciones de uso</small>/</a>
+            <a href="#" class="text-white"><small class="text-white ms-2">Ventas y reembolsos</small></a>
+          </div>
+        </div>
+      </div>
+      <div class="container px-0">
+        <nav class="navbar navbar-light bg-white navbar-expand-xl">
+          <a href="index.html" class="navbar-brand"><h1 class="text-primary display-6">VITRINA 360</h1></a>
+          <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="fa fa-bars text-primary"></span>
+          </button>
+          <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
+            <div class="navbar-nav mx-auto">
+              <a href="index.html" class="nav-item nav-link active">Inicio</a>
+              <a href="catalogo.html" class="nav-item nav-link">catalogos</a>
+              <!--<a href="shop-detail.html" class="nav-item nav-link">Detalles</a>-->
+              <div class="nav-item dropdown">
+               <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Categorías</a>
+                <div class="dropdown-menu m-0 bg-secondary rounded-0">
+                  <a href="#" class="dropdown-item">Moda</a>
+                  <a href="tecnologia.html" class="dropdown-item">Tecnología</a>
+                  <a href="#" class="dropdown-item">Hogar</a>
+                  <a href="#" class="dropdown-item">Belleza</a>
+                </div>
+              </div>
+              <a href="contact.html" class="nav-item nav-link">Contacto</a>
+            </div>
+            <div class="d-flex m-3 me-0">
+              <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search text-primary"></i></button>
+              <a href="#" class="position-relative me-4 my-auto">
+                <i class="fa fa-shopping-bag fa-2x"></i>
+                <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
+              </a>
+              <a href="#" class="my-auto">
+                <i class="fas fa-user fa-2x"></i>
+              </a>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+
+  <!-- Header -->
+  <div class="container-fluid page-header py-5 mt-5">
+    <h1 class="text-center text-white display-6">Catálogo virtual (PDF)</h1>
+    <ol class="breadcrumb justify-content-center mb-0">
+      <li class="breadcrumb-item"><a href="index.html" class="text-white-50">Inicio</a></li>
+      <li class="breadcrumb-item text-white active">Catálogo</li>
+    </ol>
+  </div>
+
+  <!-- Contenido -->
+  <main class="container py-5" data-nopay>
+    <!-- Toolbar -->
+    <div class="d-flex catalog-toolbar align-items-center mb-4">
+      <div class="btn-group" role="group" aria-label="Filtros">
+        <input type="radio" class="btn-check" name="cat" id="f_all" value="all" checked>
+        <label class="btn btn-outline-secondary" for="f_all">Todo</label>
+        <input type="radio" class="btn-check" name="cat" id="f_moda" value="moda">
+        <label class="btn btn-outline-secondary" for="f_moda">Moda</label>
+        <input type="radio" class="btn-check" name="cat" id="f_tecnologia" value="tecnologia">
+        <label class="btn btn-outline-secondary" for="f_tecnologia">Tecnología</label>
+        <input type="radio" class="btn-check" name="cat" id="f_hogar" value="hogar">
+        <label class="btn btn-outline-secondary" for="f_hogar">Hogar</label>
+        <input type="radio" class="btn-check" name="cat" id="f_belleza" value="belleza">
+        <label class="btn btn-outline-secondary" for="f_belleza">Belleza</label>
+      </div>
+
+      <div class="ms-auto d-flex align-items-center gap-2">
+        <i class="fas fa-search text-muted"></i>
+        <input id="searchBox" class="form-control" type="search" placeholder="Buscar marca o título…">
+      </div>
+    </div>
+
+    <!-- Grid -->
+    <div id="catalogGrid" class="row g-4"></div>
+  </main>
+
+  <!-- Modal Visor PDF -->
+  <div class="modal fade viewer" id="viewerModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+      <div class="modal-content">
+        <div class="modal-body">
+          <button class="viewer-arrow viewer-prev" id="btnPrev"><i class="fas fa-chevron-left"></i></button>
+          <canvas id="pdfCanvas"></canvas>
+          <button class="viewer-arrow viewer-next" id="btnNext"><i class="fas fa-chevron-right"></i></button>
+
+          <div class="viewer-top">
+            <a class="btn btn-sm" id="btnOpen" target="_blank" title="Abrir PDF en nueva pestaña"><i class="fas fa-external-link-alt"></i></a>
+            <a class="btn btn-sm" id="btnDownload" download title="Descargar PDF"><i class="fas fa-download"></i></a>
+            <button class="btn btn-sm" id="btnFull" title="Pantalla completa"><i class="fas fa-expand"></i></button>
+            <button class="btn btn-sm" data-bs-dismiss="modal" title="Cerrar"><i class="fas fa-times"></i></button>
+          </div>
+        </div>
+        <div class="viewer-footer">
+          <div>
+            <div class="small text-white-50" id="viewerBrand"></div>
+            <div class="h5 mb-0" id="viewerTitle"></div>
+          </div>
+          <div class="d-flex align-items-center gap-3">
+            <span class="pager" id="pager">1 / 1</span>
+            <button class="btn btn-outline-light btn-sm" id="btnPrevCatalog"><i class="fas fa-angle-left me-1"></i> Catálogo anterior</button>
+            <button class="btn btn-danger" id="btnNextCatalog">Siguiente catálogo <i class="fas fa-angle-right ms-1"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer mínimo -->
+   <div class="container-fluid copyright bg-dark py-4">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+            <span class="text-light"><a href="#"><i class="fas fa-copyright text-light me-2"></i>Derechos Reservados</a>, Ing. Alex Mendoza CIP 172904</span>
+          </div>
+          <div class="col-md-6 my-auto text-center text-md-end text-white">
+            Diseñado por <a class="border-bottom" href="https://alexmendoza.com">Mendoza</a> Distribuido por <a class="border-bottom" href="https://alexmendoza.com">Mendoza</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Copyright End -->
+
+    <!-- Botón flotante de WhatsApp -->
+    <a href="https://wa.me/51955930134?text=Hola,%20quiero%20información"
+       class="position-fixed"
+       style="right:18px;bottom:18px;z-index:1050">
+      <img src="img/WhatsApp.png" alt="WhatsApp" width="56" height="56"
+           style="border-radius:50%;box-shadow:0 8px 24px rgba(0,0,0,.15)">
+    </a>
+
+  <!-- JS de Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- PDF.js (CDN) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script>
+    // Configura el worker de PDF.js
+    pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+  </script>
+
+  <script>
+    /* ================== DATA: edita rutas de tus PDFs ================== */
+    const CATALOGOS = [
+      {
+        id:'plazavea-ahorro', categoria:'moda',
+        marca:'Moda', color:'red',
+        titulo:'MARCAS DEL AHORRO',
+        vence:'Vence el 13/9',
+        badge:{type:'orange', text:'VENCE HOY'},
+        pdf:'pdf/moda/moda.pdf',
+        // portada opcional (si no la pones, se genera de la primera página):
+        // portada:'img/catalogos/moda/plazavea-cover.jpg'
+      },
+      {
+        id:'makro-redondos', categoria:'hogar',
+        marca:'Hogar', color:'blue',
+        titulo:'Catálogo Precios Redondos',
+        vence:'Vence el 9/9',
+        badge:null,
+        pdf:'pdf/hogar/hogar.pdf'
+      },
+      {
+        id:'tottus-gangas', categoria:'hogar',
+        marca:'Hogar', color:'green',
+        titulo:'Nuestras mejores gangas',
+        vence:'Vence hoy',
+        badge:{type:'orange', text:'VENCE HOY'},
+        pdf:'pdf/hogar/hogar1.pdf'
+      },
+      {
+        id:'metro-nuevo', categoria:'belleza',
+        marca:'Belleza', color:'yellow',
+        titulo:'Catálogo Metro',
+        vence:'Vence el 6/9',
+        badge:{type:'green', text:'NUEVO'},
+        pdf:'pdf/belleza/belleza.pdf'
+      },
+      {
+        id:'tec-smart', categoria:'tecnologia',
+        marca:'Tecnologia', color:'blue',
+        titulo:'Tecnología Smart',
+        vence:'Vence el 21/9',
+        badge:null,
+        pdf:'pdf/tecnologia/tecnologia.pdf'
+      }
+    ];
+    /* ================================================================== */
+
+
+
+
+    const grid = document.getElementById('catalogGrid');
+    const searchBox = document.getElementById('searchBox');
+    const filterRadios = document.querySelectorAll('input[name="cat"]');
+
+    let currentList = CATALOGOS.slice();
+    let currentIndex = 0, pageIndex = 1; // PDF.js pages start at 1
+    let pdfDoc = null;
+
+    function cardTemplate(item){
+      const badge = item.badge ? `<span class="catalog-badge ${item.badge.type==='green'?'badge-green':'badge-orange'}">${item.badge.text}</span>` : '';
+      const cover = item.portada ? `style="background-image:url('${item.portada}');"` : '';
+      return `
+        <div class="col-sm-6 col-lg-4 col-xl-3">
+          <div class="catalog-card h-100">
+            <a class="catalog-thumb" data-thumb="${item.id}" ${cover}>${badge}</a>
+            <div class="p-3">
+              <div class="brand-line mb-1">
+                <span class="brand-logo" data-color="${item.color}">${(item.marca||'?').substring(0,2).toUpperCase()}</span>
+                <small class="text-muted">${item.marca}</small>
+              </div>
+              <div class="fw-bold">${item.titulo}</div>
+              <small class="text-muted d-block mb-3">${item.vence || ''}</small>
+              <button class="catalog-btn w-100" data-open="${item.id}">
+                ABRIR CATÁLOGO <i class="fas fa-chevron-right ms-2"></i>
+              </button>
+            </div>
+          </div>
+        </div>`;
+    }
+
+    function render(){
+      grid.innerHTML = currentList.map(cardTemplate).join('');
+
+      // Botones abrir
+      grid.querySelectorAll('[data-open]').forEach(btn=>{
+        btn.addEventListener('click', (e)=>{
+          const id = e.currentTarget.getAttribute('data-open');
+          openCatalog(id);
+        });
+      });
+
+      // Thumbs autogeneradas desde PDF (si no hay portada)
+      grid.querySelectorAll('[data-thumb]').forEach(async el=>{
+        const id = el.getAttribute('data-thumb');
+        const item = CATALOGOS.find(c=>c.id===id);
+        if (!item || item.portada) return; // ya tiene portada
+        try{
+          const pdf = await pdfjsLib.getDocument(item.pdf).promise;
+          const page = await pdf.getPage(1);
+          const viewport = page.getViewport({ scale: 0.2 }); // mini
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          canvas.width = viewport.width;
+          canvas.height = viewport.height;
+          await page.render({canvasContext: ctx, viewport}).promise;
+          el.style.backgroundImage = `url(${canvas.toDataURL('image/jpeg',0.8)})`;
+        }catch(err){
+          // fallback: color liso si falla
+          el.style.background = '#eef1f5';
+        }
+        el.addEventListener('click', ()=> openCatalog(id));
+      });
+    }
+
+    function applyFilters(){
+      const cat = [...filterRadios].find(r=>r.checked)?.value || 'all';
+      const q = (searchBox.value || '').toLowerCase().trim();
+      currentList = CATALOGOS.filter(c=>{
+        const okCat = (cat==='all') || c.categoria===cat;
+        const okQ = !q || (c.marca.toLowerCase().includes(q) || c.titulo.toLowerCase().includes(q));
+        return okCat && okQ;
+      });
+      render();
+    }
+    filterRadios.forEach(r=>r.addEventListener('change', applyFilters));
+    searchBox.addEventListener('input', applyFilters);
+    render();
+
+    // ====== VISOR PDF ======
+    const viewerModal  = new bootstrap.Modal('#viewerModal');
+    const pdfCanvas    = document.getElementById('pdfCanvas');
+    const ctx          = pdfCanvas.getContext('2d');
+    const viewerBrand  = document.getElementById('viewerBrand');
+    const viewerTitle  = document.getElementById('viewerTitle');
+    const pager        = document.getElementById('pager');
+    const btnPrev      = document.getElementById('btnPrev');
+    const btnNext      = document.getElementById('btnNext');
+    const btnFull      = document.getElementById('btnFull');
+    const btnOpen      = document.getElementById('btnOpen');
+    const btnDownload  = document.getElementById('btnDownload');
+    const btnNextCatalog = document.getElementById('btnNextCatalog');
+    const btnPrevCatalog = document.getElementById('btnPrevCatalog');
+
+    function openCatalog(id){
+      currentIndex = currentList.findIndex(c=>c.id===id);
+      if (currentIndex<0) return;
+      loadPdf(currentList[currentIndex].pdf);
+      viewerBrand.textContent = currentList[currentIndex].marca;
+      viewerTitle.textContent = currentList[currentIndex].titulo;
+      btnOpen.href = currentList[currentIndex].pdf;
+      btnDownload.href = currentList[currentIndex].pdf;
+      viewerModal.show();
+    }
+
+    async function loadPdf(url){
+      pageIndex = 1;
+      pdfDoc = await pdfjsLib.getDocument(url).promise;
+      renderPage();
+    }
+
+    function fitScale(viewport){
+      const maxW = Math.min(window.innerWidth * 0.9, 1400);
+      const maxH = window.innerHeight * 0.82;
+      const scaleW = maxW / viewport.width;
+      const scaleH = maxH / viewport.height;
+      return Math.min(scaleW, scaleH);
+    }
+
+    async function renderPage(){
+      if (!pdfDoc) return;
+      const page = await pdfDoc.getPage(pageIndex);
+      const base = page.getViewport({ scale: 1 });
+      const scale = fitScale(base);
+      const vp = page.getViewport({ scale });
+      pdfCanvas.width = vp.width;
+      pdfCanvas.height = vp.height;
+      await page.render({ canvasContext: ctx, viewport: vp }).promise;
+      pager.textContent = `${pageIndex} / ${pdfDoc.numPages}`;
+    }
+
+    function nextPage(){
+      if (!pdfDoc) return;
+      pageIndex = (pageIndex % pdfDoc.numPages) + 1;
+      renderPage();
+    }
+    function prevPage(){
+      if (!pdfDoc) return;
+      pageIndex = (pageIndex - 2 + pdfDoc.numPages) % pdfDoc.numPages + 1;
+      renderPage();
+    }
+
+    btnNext.addEventListener('click', nextPage);
+    btnPrev.addEventListener('click', prevPage);
+    window.addEventListener('resize', renderPage);
+
+    btnNextCatalog.addEventListener('click', ()=>{
+      if (!currentList.length) return;
+      currentIndex = (currentIndex + 1) % currentList.length;
+      openCatalog(currentList[currentIndex].id);
+    });
+    btnPrevCatalog.addEventListener('click', ()=>{
+      if (!currentList.length) return;
+      currentIndex = (currentIndex - 1 + currentList.length) % currentList.length;
+      openCatalog(currentList[currentIndex].id);
+    });
+
+    // teclado
+    document.addEventListener('keydown', (e)=>{
+      const shown = document.getElementById('viewerModal').classList.contains('show');
+      if (!shown) return;
+      if (e.key==='ArrowRight') nextPage();
+      if (e.key==='ArrowLeft')  prevPage();
+    });
+
+    // Fullscreen
+    btnFull.addEventListener('click', ()=>{
+      const el = document.querySelector('#viewerModal .modal-content');
+      if (!document.fullscreenElement){
+        el.requestFullscreen?.();
+      } else {
+        document.exitFullscreen?.();
+      }
+    });
+  </script>
+</body>
+</html>
+

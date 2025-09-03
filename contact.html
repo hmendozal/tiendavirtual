@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Contacto | Vitrina 360</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Fuentes / Iconos / Bootstrap (mismo stack que ya usas) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Librerías que ya usas -->
+  <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+  <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+  <!-- Tu CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+
+  <style>
+    /* Ajustes suaves sin cambiar tu estética */
+    .contact-hero h1 { letter-spacing:.5px }
+    .card-soft { border:1px solid rgba(0,0,0,.05); border-radius:1rem; }
+    .info-chip { display:inline-flex; gap:.5rem; align-items:center; background:#f8f9fa; padding:.4rem .8rem; border-radius:999px; font-size:.9rem }
+    .copy-btn { border-radius:999px }
+    .whatsapp-cta { white-space:nowrap }
+    .form-hint { font-size:.875rem; color:#6c757d }
+  </style>
+</head>
+<body>
+
+  <!-- Spinner -->
+  <div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50 d-flex align-items-center justify-content-center">
+    <div class="spinner-grow text-primary" role="status"></div>
+  </div>
+
+  <!-- Navbar -->
+  <div class="container-fluid fixed-top">
+    <div class="container topbar bg-primary d-none d-lg-block">
+      <div class="d-flex justify-content-between">
+        <div class="top-info ps-2">
+          <small class="me-3">
+            <i class="fas fa-map-marker-alt me-2 text-secondary"></i>
+            <a href="#" class="text-white">Perú, Piura</a>
+          </small>
+          <small class="me-3">
+            <i class="fas fa-envelope me-2 text-secondary"></i>
+            <a href="mailto:tienda@example.com" class="text-white">tienda@example.com</a>
+          </small>
+        </div>
+        <div class="top-link pe-2">
+          <a href="#" class="text-white"><small class="text-white mx-2">Política de privacidad</small>/</a>
+          <a href="#" class="text-white"><small class="text-white mx-2">Términos de uso</small>/</a>
+          <a href="#" class="text-white"><small class="text-white ms-2">Ventas y reembolsos</small></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container px-0">
+      <nav class="navbar navbar-light bg-white navbar-expand-xl">
+        <a href="index.html" class="navbar-brand"><h1 class="text-primary display-6">VITRINA 360</h1></a>
+        <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+          <span class="fa fa-bars text-primary"></span>
+        </button>
+        <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
+         <div class="navbar-nav mx-auto">
+              <a href="index.html" class="nav-item nav-link active">Inicio</a>
+              <a href="catalogo.html" class="nav-item nav-link">catalogos</a>
+               <!--<a href="shop-detail.html" class="nav-item nav-link">Detalles</a>-->
+              <div class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Categorías</a>
+                <div class="dropdown-menu m-0 bg-secondary rounded-0">
+                  <a href="#" class="dropdown-item">Moda</a>
+                  <a href="tecnologia.html" class="dropdown-item">Tecnología</a>
+                  <a href="#" class="dropdown-item">Hogar</a>
+                  <a href="#" class="dropdown-item">Belleza</a>
+                </div>
+              </div>
+            <a href="contacto.html" class="nav-item nav-link active">Contacto</a>
+          </div>
+          <div class="d-flex m-3 me-0">
+            <button class="btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search text-primary"></i></button>
+            <a href="#" class="position-relative me-4 my-auto">
+              <i class="fa fa-shopping-bag fa-2x"></i>
+              <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top:-5px;left:15px;height:20px;min-width:20px;">3</span>
+            </a>
+            <a href="#" class="my-auto">
+              <i class="fas fa-user fa-2x"></i>
+            </a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Modal búsqueda -->
+  <div class="modal fade" id="searchModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+      <div class="modal-content rounded-0">
+        <div class="modal-header">
+          <h5 class="modal-title">Buscar por palabra clave</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body d-flex align-items-center">
+          <div class="input-group w-75 mx-auto d-flex">
+            <input type="search" class="form-control p-3" placeholder="¿Qué necesitas?" aria-describedby="search-icon-1">
+            <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Encabezado -->
+  <div class="container-fluid page-header py-5 contact-hero">
+    <h1 class="text-center text-white display-6">Contáctanos</h1>
+    <ol class="breadcrumb justify-content-center mb-0">
+      <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+      <li class="breadcrumb-item"><a href="#">Páginas</a></li>
+      <li class="breadcrumb-item active text-white">Contacto</li>
+    </ol>
+  </div>
+
+  <!-- Contacto -->
+  <div class="container-fluid contact py-5">
+    <div class="container py-5">
+      <div class="p-4 p-md-5 bg-light rounded card-soft">
+        <div class="row g-4 align-items-start">
+
+          <!-- Intro -->
+          <div class="col-12 text-center">
+            <div class="mx-auto" style="max-width: 760px;">
+              <h2 class="text-primary mb-2">Hablemos de tu pedido o proyecto</h2>
+              <p class="mb-0 text-muted">Rellena el formulario y elige si deseas enviarnos tu mensaje por <strong>WhatsApp</strong> o por <strong>correo</strong>. También puedes usar los datos directos de contacto.</p>
+            </div>
+          </div>
+
+          <!-- Tarjetas de contacto -->
+          <div class="col-lg-5">
+            <div class="card-soft bg-white p-4 mb-3">
+              <div class="d-flex">
+                <i class="fas fa-map-marker-alt fa-2x text-primary me-3"></i>
+                <div>
+                  <h5 class="mb-1">Dirección</h5>
+                  <p class="mb-2">Piura, Perú</p>
+                  <span class="info-chip"><i class="far fa-clock"></i> Lun–Sáb: 9:00–18:00</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-soft bg-white p-4 mb-3">
+              <div class="d-flex align-items-start">
+                <i class="fas fa-envelope fa-2x text-primary me-3"></i>
+                <div>
+                  <h5 class="mb-1">Correo</h5>
+                  <p class="mb-2"><a id="emailText" href="mailto:tienda@example.com">tienda@example.com</a></p>
+                  <button class="btn btn-sm btn-outline-secondary copy-btn" data-copy="#emailText">Copiar correo</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-soft bg-white p-4">
+              <div class="d-flex align-items-start">
+                <i class="fa fa-phone-alt fa-2x text-primary me-3"></i>
+                <div>
+                  <h5 class="mb-1">Teléfono / WhatsApp</h5>
+                  <p class="mb-2"><a id="phoneText" href="https://wa.me/51955930134" target="_blank" rel="noopener">+51 955 930 134</a></p>
+                  <div class="d-flex gap-2">
+                    <button class="btn btn-sm btn-outline-secondary copy-btn" data-copy="#phoneText">Copiar número</button>
+                    <a class="btn btn-sm btn-success whatsapp-cta" href="https://wa.me/51955930134?text=Hola,%20quisiera%20más%20información" target="_blank" rel="noopener">
+                      <i class="fab fa-whatsapp me-1"></i> Escribir por WhatsApp
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Formulario -->
+          <div class="col-lg-7">
+            <form id="contactForm" class="needs-validation" novalidate>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label">Nombre y apellido</label>
+                  <input type="text" class="form-control border-0 py-3" id="nombre" placeholder="Ej: Alex Mendoza" required>
+                  <div class="invalid-feedback">Ingresa tu nombre.</div>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Correo electrónico</label>
+                  <input type="email" class="form-control border-0 py-3" id="correo" placeholder="tucorreo@dominio.com" required>
+                  <div class="invalid-feedback">Ingresa un correo válido.</div>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Teléfono (opcional)</label>
+                  <input type="tel" class="form-control border-0 py-3" id="telefono" placeholder="9 dígitos">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Asunto</label>
+                  <input type="text" class="form-control border-0 py-3" id="asunto" placeholder="Ej: Consulta sobre un producto" required>
+                  <div class="invalid-feedback">Indica un asunto.</div>
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Mensaje</label>
+                  <textarea class="form-control border-0" id="mensaje" rows="5" placeholder="Cuéntanos cómo podemos ayudarte" required></textarea>
+                  <div class="invalid-feedback">Escribe tu mensaje.</div>
+                  <div class="form-hint mt-1">Enviaremos este contenido por el canal que elijas abajo.</div>
+                </div>
+
+                <div class="col-12">
+                  <label class="form-label d-block mb-2">Enviar por</label>
+                  <div class="btn-group" role="group" aria-label="Método de envío">
+                    <input type="radio" class="btn-check" name="via" id="viaWhatsApp" value="whatsapp" checked>
+                    <label class="btn btn-outline-success" for="viaWhatsApp"><i class="fab fa-whatsapp me-1"></i> WhatsApp</label>
+
+                    <input type="radio" class="btn-check" name="via" id="viaEmail" value="email">
+                    <label class="btn btn-outline-primary" for="viaEmail"><i class="fas fa-envelope me-1"></i> Email</label>
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <button class="btn btn-dark w-100 py-3" type="submit">
+                    <i class="fas fa-paper-plane me-1"></i> Enviar mensaje
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <!-- Mapa -->
+          <div class="col-12">
+            <div class="h-100 rounded mt-2">
+              <iframe class="rounded w-100" style="height: 380px;"
+                src="https://www.google.com/maps?q=Piura%2C%20Per%C3%BA&output=embed"
+                loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer (lo dejo tal cual, si quieres luego lo traducimos completo como en tu index) -->
+  <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5">
+    <div class="container py-5">
+      <div class="pb-4 mb-4" style="border-bottom: 1px solid rgba(226, 175, 24, 0.5);">
+        <div class="row g-4">
+          <div class="col-lg-3">
+            <a href="#"><h1 class="text-primary mb-0">Vitrina 360</h1><p class="text-secondary mb-0">Tu producto, nuestra vitrina digital</p></a>
+          </div>
+          <div class="col-lg-6">
+            <div class="position-relative mx-auto">
+              <input class="form-control border-0 w-100 py-3 px-4 rounded-pill" type="email" placeholder="Tu email">
+              <button type="submit" class="btn btn-primary border-0 border-secondary py-3 px-4 position-absolute rounded-pill text-white" style="top:0; right:0;">Suscribirme</button>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="d-flex justify-content-end pt-3">
+              <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-twitter"></i></a>
+              <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-facebook-f"></i></a>
+              <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-youtube"></i></a>
+              <a class="btn btn-outline-secondary btn-md-square rounded-circle" href=""><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row g-5">
+        <div class="col-lg-3 col-md-6">
+          <div class="footer-item">
+            <h4 class="text-light mb-3">Quiénes somos</h4>
+            <p class="mb-4">Marketplace peruano diseñado para conectar empresas y emprendedores con clientes en todo el país.</p>
+            <a href="index.html" class="btn border-secondary py-2 px-4 rounded-pill text-primary">Ir al inicio</a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="d-flex flex-column text-start footer-item">
+            <h4 class="text-light mb-3">Información</h4>
+            <a class="btn-link" href="">Nosotros</a>
+            <a class="btn-link" href="">Contáctanos</a>
+            <a class="btn-link" href="">Privacidad</a>
+            <a class="btn-link" href="">Términos</a>
+            <a class="btn-link" href="">Devoluciones</a>
+            <a class="btn-link" href="">FAQs & Ayuda</a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="d-flex flex-column text-start footer-item">
+            <h4 class="text-light mb-3">Cuenta</h4>
+            <a class="btn-link" href="">Mi cuenta</a>
+            <a class="btn-link" href="">Detalle de compra</a>
+            <a class="btn-link" href="">Carrito</a>
+            <a class="btn-link" href="">Wishlist</a>
+            <a class="btn-link" href="">Historial</a>
+            <a class="btn-link" href="">Pedidos internacionales</a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="footer-item">
+            <h4 class="text-light mb-3">Contacto</h4>
+            <p>Dirección: Piura, Perú</p>
+            <p>Email: tienda@example.com</p>
+            <p>Teléfono: +51 955 930 134</p>
+            <p>Métodos de pago</p>
+            <img src="img/payment.png" class="img-fluid" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Copyright -->
+  <div class="container-fluid copyright bg-dark py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+          <span class="text-light"><a href="#"><i class="fas fa-copyright text-light me-2"></i>Derechos reservados</a>, Vitrina 360</span>
+        </div>
+        <div class="col-md-6 my-auto text-center text-md-end text-white">
+          Diseñado por <a class="border-bottom" href="https://mendoza.com">Mendoza</a> Distribuido por <a class="border-bottom" href="https://mendoza.com">Mendoza</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Botón flotante de WhatsApp (opcional) -->
+  <a href="https://wa.me/51955930134?text=Hola,%20quisiera%20informaci%C3%B3n"
+     class="position-fixed" style="right:18px;bottom:18px;z-index:1050">
+    <img src="img/WhatsApp.png" alt="WhatsApp" width="56" height="56"
+         style="border-radius:50%;box-shadow:0 8px 24px rgba(0,0,0,.15)">
+  </a>
+
+  <!-- JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="lib/easing/easing.min.js"></script>
+  <script src="lib/waypoints/waypoints.min.js"></script>
+  <script src="lib/lightbox/js/lightbox.min.js"></script>
+  <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+  <script src="js/main.js"></script>
+
+  <script>
+    // ====== CONFIGURA AQUÍ TUS DATOS ======
+    const PHONE_WHATSAPP = '51955930134';           // WhatsApp (sin +)
+    const EMAIL_DESTINO  = 'tienda@example.com';     // Correo receptor
+    // ======================================
+
+    // Quita spinner inicial
+    window.addEventListener('load', () => {
+      document.getElementById('spinner')?.classList.remove('show');
+    });
+
+    // Copiar texto
+    document.querySelectorAll('.copy-btn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const sel = btn.getAttribute('data-copy');
+        const node = document.querySelector(sel);
+        if (!node) return;
+        const text = (node.getAttribute('href') || node.textContent).replace('mailto:','');
+        navigator.clipboard.writeText(text.trim());
+        const prev = btn.textContent;
+        btn.textContent = '¡Copiado!';
+        setTimeout(()=> btn.textContent = prev, 1500);
+      });
+    });
+
+    // Validación y envío
+    (function () {
+      'use strict';
+      const form = document.getElementById('contactForm');
+
+      form.addEventListener('submit', function (e) {
+        if (!form.checkValidity()) {
+          e.preventDefault();
+          e.stopPropagation();
+        } else {
+          e.preventDefault();
+          enviarMensaje();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    })();
+
+    function enviarMensaje() {
+      const nombre   = document.getElementById('nombre').value.trim();
+      const correo   = document.getElementById('correo').value.trim();
+      const telefono = document.getElementById('telefono').value.trim();
+      const asunto   = document.getElementById('asunto').value.trim();
+      const mensaje  = document.getElementById('mensaje').value.trim();
+      const viaWhats = document.getElementById('viaWhatsApp').checked;
+
+      const line = (k, v) => v ? `• ${k}: ${v}` : '';
+      const body =
+`Hola, me gustaría más información:
+${line('Nombre', nombre)}
+${line('Correo', correo)}
+${line('Teléfono', telefono)}
+${line('Asunto', asunto)}
+
+${mensaje}`;
+
+      if (viaWhats) {
+        const url = `https://wa.me/${PHONE_WHATSAPP}?text=${encodeURIComponent(body)}`;
+        window.open(url, '_blank');
+      } else {
+        const url = `mailto:${EMAIL_DESTINO}?subject=${encodeURIComponent('Contacto - ' + asunto)}&body=${encodeURIComponent(body)}`;
+        window.location.href = url;
+      }
+    }
+  </script>
+</body>
+</html>
